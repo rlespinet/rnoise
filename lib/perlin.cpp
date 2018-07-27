@@ -39,21 +39,14 @@ float* perlin_generate(uint width, uint height, uint nx, uint ny) {
     for (uint y = 0; y < height; y++) {
         for (uint x = 0; x < width; x++) {
 
-            // float dx = s_cast<float>(x) / width  * nx;
-            // float dy = s_cast<float>(y) / height * ny;
+            float dx = static_cast<float>(x) / width  * nx;
+            float dy = static_cast<float>(y) / height * ny;
 
-            // uint ix = dx - static_cast<uint>(dx);
-            // uint iy = dy - static_cast<uint>(dy);
+            uint ix = static_cast<uint>(dx);
+            uint iy = static_cast<uint>(dy);
 
-            // dx -= static_cast<float>(ix);
-            // dy -= static_cast<float>(iy);
-
-            float fx, fy;
-            float dx = std::modf(static_cast<float>(x) / width  * nx, &fx);
-            float dy = std::modf(static_cast<float>(y) / height * ny, &fy);
-
-            uint ix = static_cast<uint>(fx);
-            uint iy = static_cast<uint>(fy);
+            dx -= static_cast<float>(ix);
+            dy -= static_cast<float>(iy);
 
             float n00 = dot({dx - 0, dy - 0}, grid(ix + 0, iy + 0));
             float n10 = dot({dx - 1, dy - 0}, grid(ix + 1, iy + 0));
