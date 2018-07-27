@@ -2,7 +2,7 @@
 
 #include <random>
 
-#include "vec2.hpp"
+#include "vec.hpp"
 #include "ndarray.hpp"
 
 inline float fade(float t) {
@@ -23,7 +23,7 @@ float* perlin_generate(uint width, uint height, uint nx, uint ny) {
     std::uniform_real_distribution<> dis(-1.0, 1.0);
 
     // Generate the grid !
-    ndarray<vec2, 2> grid(nx + 1, ny + 1);
+    ndarray<vec2f, 2> grid(nx + 1, ny + 1);
     for (uint i = 0; i < grid.size(); i++) {
         float x = dis(gen);
         float y = dis(gen);
@@ -54,8 +54,6 @@ float* perlin_generate(uint width, uint height, uint nx, uint ny) {
 
             uint ix = static_cast<uint>(fx);
             uint iy = static_cast<uint>(fy);
-
-            vec2 v = {dx, dy};
 
             float n00 = dot({dx - 0, dy - 0}, grid(ix + 0, iy + 0));
             float n10 = dot({dx - 1, dy - 0}, grid(ix + 1, iy + 0));
